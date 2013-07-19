@@ -1,0 +1,1 @@
+Simple angularjs sandbox application used for testing an angularjs, gruntjs, karma workflow.
