@@ -12,8 +12,8 @@ module.exports = function(grunt) {
 
 	//Setup workflow
 	grunt.registerTask("default", ['build', 'karma:unit']);
-	grunt.registerTask("build", ['clean:all', 'html2js', 'concat', 'recess:build', 'copy:assets']);
-	grunt.registerTask("release", ['clean:all', 'html2js', 'uglify', 'karma:unit', 'concat:index', 
+	grunt.registerTask("build", ['clean:all', 'html2js', 'concat', 'recess:build', 'copy:angular', 'copy:assets']);
+	grunt.registerTask("release", ['clean:all', 'html2js', 'uglify', 'karma:unit', 'copy:angular', 'concat:index', 
         'recess:min', 'copy:assets', 'clean:templates']);
 
 	//Configure tasks
@@ -53,6 +53,10 @@ module.exports = function(grunt) {
                     expand: true, 
                     cwd:'src/assets'
                 }]
+            },
+            angular: {
+                src:['vendor/angular/angular.min.js'],
+                dest: '<%= distdir %>/app/angular.js'
             }
     	},
 
@@ -68,11 +72,7 @@ module.exports = function(grunt) {
         		options: {
           			process: true
         		}
-      		},
-            angular: {
-                src:['vendor/angular/angular.min.js'],
-                dest: '<%= distdir %>/app/angular.js'
-            },
+      		}
 		},
 
         //Convert html templates into javascript module for later concatenation
@@ -93,15 +93,11 @@ module.exports = function(grunt) {
             dist:{
                 options: {
                     banner: '<%= banner %>',
-                    mangle: false
+                    mangle: true
                 },
                 src:['<%= src.js %>'],
                 dest:'<%= distdir %>/app/app.js'
-            },
-            angular: {
-                src:['<%= concat.angular.src %>'],
-                dest: '<%= distdir %>/app/angular.js'
-            },
+            }
         },
 
         //Lint and minify less / css

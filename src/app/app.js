@@ -1,9 +1,13 @@
-angular.module('app',['templates.app','app.home', 'app.about'])
+angular.module('app',[
+	'templates.app',
+	'app.home', 
+	'app.about'
+])
 
-.config(function($routeProvider) {
+.config(['$routeProvider', function($routeProvider) {
     $routeProvider.otherwise({ redirectTo: '/home' });
-})
+}])
 
-.controller( 'AppCtrl', ['$scope', function AppCtrl ( $scope ) {
+.controller( 'AppCtrl', ['$scope', function ($scope) {
 
 }]);
